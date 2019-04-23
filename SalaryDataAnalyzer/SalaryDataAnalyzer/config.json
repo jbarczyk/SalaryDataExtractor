@@ -1,0 +1,7 @@
+{
+  "AppSettings": {
+    "CsvFilePath": "",
+    "CsvSchemaFilePath": "",
+    "SeperatorCsv": ""
+  }
+}

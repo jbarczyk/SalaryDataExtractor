@@ -1,0 +1,35 @@
+﻿<Window x:Class="SalaryDataAnalyzer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+
+
+        <DataGrid AutoGenerateColumns="False" 
+          Name="questionGrid" 
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch" Margin="10,10,220.6,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Header}" MinWidth="50" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding Path=Description}" MinWidth="50" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel>
+            <Button Name="LoadButton" Content="Load questions" Click="Button_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27"/>
+            <Button Name="CalculateButton" IsEnabled="False" Content="Calculate amount" Click="Calculate_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27"/>
+            <Label Name="AnswerLabel" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27"/>
+            <Button Name="ShowButton" IsEnabled="False" Content="Show responses" Click="Show_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27"/>
+            <DataGrid AutoGenerateColumns="False" 
+                      x:Name="answerGrid" 
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Stretch" Margin="0,0,-0.4,0" Width="153" Height="323" RenderTransformOrigin="0.501,0.62">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Response}" MinWidth="50" Width="Auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>
