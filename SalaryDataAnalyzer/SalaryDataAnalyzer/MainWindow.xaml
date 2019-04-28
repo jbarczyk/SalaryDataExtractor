@@ -4,32 +4,54 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450">
+
     <Grid>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth = "500" Width="5*" />
+            <ColumnDefinition MinWidth = "300" Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "*" />
+        </Grid.RowDefinitions>
 
         <DataGrid AutoGenerateColumns="False" 
-          Name="questionGrid" 
-          HorizontalAlignment="Stretch"
-          VerticalAlignment="Stretch" Margin="10,10,220.6,10">
+          Name="questionGrid"
+                  Grid.Row="0"
+                  Grid.Column="0"
+          VerticalAlignment="Stretch" Margin="10,10,6,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Header}" MinWidth="50" Width="Auto"/>
                 <DataGridTextColumn Binding="{Binding Path=Description}" MinWidth="50" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel>
-            <Button Name="LoadButton" Content="Load questions" Click="Button_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27"/>
-            <Button Name="CalculateButton" IsEnabled="False" Content="Calculate amount" Click="Calculate_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27"/>
-            <Label Name="AnswerLabel" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27"/>
-            <Button Name="ShowButton" IsEnabled="False" Content="Show responses" Click="Show_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27"/>
+        <Grid Grid.Row="0" Grid.Column="1" Margin="0,0,8,0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width = "200" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height = "auto" />
+                <RowDefinition Height = "*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="0,0,-89,0">
+                <Button Name="LoadButton" Content="Load questions" Click="Button_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,20,20,0"/>
+                <Button Name="CalculateButton" IsEnabled="False" Content="Calculate amount" Click="Calculate_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,5,20,0"/>
+                <Label Name="AnswerLabel" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27"/>
+                <Button x:Name="ShowButton" IsEnabled="False" Content="Show responses" Click="Show_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,0,20,0"/>
+            </StackPanel>
             <DataGrid AutoGenerateColumns="False" 
-                      x:Name="answerGrid" 
-                      HorizontalAlignment="Right"
-                      VerticalAlignment="Stretch" Margin="0,0,-0.4,0" Width="153" Height="323" RenderTransformOrigin="0.501,0.62">
+                      Grid.Row="1" Grid.Column="0"
+                      x:Name="answerGrid"
+                      VerticalAlignment="Stretch" Margin="0,10,-70,10" HorizontalAlignment="Right" Width="261">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Response}" MinWidth="50" Width="Auto"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
+        </Grid>
     </Grid>
 </Window>

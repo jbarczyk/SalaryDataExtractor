@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -89,16 +91,24 @@ namespace SalaryDataAnalyzer
                 .FirstOrDefault()
                 .i;
 
-            foreach(var response in _survey.Responses
+            //save to file
+            var csv = new StringBuilder();
+
+            foreach (var response in _survey.Responses
                 .Select( x=> x.Answers[questionId])
                 .Distinct()
                 .OrderBy(x => x))
             {
+                var newLine = response + ",";
+                csv.Append(newLine);
+
                 list.Add(new DataObject
                 {
                     Response = response
                 });
             }
+
+            File.WriteAllText("./options.csv", csv.ToString());
 
             answerGrid.ItemsSource = list;
             FitToContent(answerGrid);

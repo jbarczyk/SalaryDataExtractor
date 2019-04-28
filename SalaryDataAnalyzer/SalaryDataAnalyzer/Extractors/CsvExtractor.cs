@@ -17,7 +17,8 @@ namespace SalaryDataAnalyzer.Extractors
             {
                 SeperatorCsv = ',',
                 CsvFilePath = "Data/survey_results_public.csv",
-                CsvSchemaFilePath = "Data/survey_results_schema.csv"
+                CsvSchemaFilePath = "Data/survey_results_schema.csv",
+                CsvCountriesFilePath = "Data/countries.csv"
             };
         }
 
@@ -71,6 +72,20 @@ namespace SalaryDataAnalyzer.Extractors
                     Responses = result
                 };
             }
+        }
+
+
+        public List<string> GetCountries()
+        {
+            var result = new List<string>();
+
+            using (var reader = new StreamReader(_settings.CsvCountriesFilePath))
+            {
+                var content = reader.ReadLine();
+                var array = content.Split(',');
+                result.AddRange(array);
+            }
+            return result;
         }
     }
 }
