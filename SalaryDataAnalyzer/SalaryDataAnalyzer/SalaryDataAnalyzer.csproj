@@ -132,14 +132,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Contracts\RespCompanySize.cs" />
-    <Compile Include="Contracts\RespConvertedSalary.cs" />
-    <Compile Include="Contracts\RespCountry.cs" />
-    <Compile Include="Contracts\RespDevType.cs" />
-    <Compile Include="Contracts\RespEmployment.cs" />
-    <Compile Include="Contracts\RespFormalEducation.cs" />
-    <Compile Include="Contracts\RespStudent.cs" />
-    <Compile Include="Contracts\RespYearsCoding.cs" />
+    <Compile Include="Normalizers\CompanySizeNormalizer.cs" />
+    <Compile Include="Normalizers\ConvertedSalaryNormalizer.cs" />
+    <Compile Include="Normalizers\CountryNormalizer.cs" />
+    <Compile Include="Normalizers\DevTypeNormalizer.cs" />
+    <Compile Include="Normalizers\EmploymentNormalizer.cs" />
+    <Compile Include="Normalizers\RespFormalEducation.cs" />
+    <Compile Include="Contracts\ResponseNormalizerBase.cs" />
+    <Compile Include="Normalizers\RespStudent.cs" />
+    <Compile Include="Normalizers\RespYearsCoding.cs" />
     <Compile Include="Contracts\Survey.cs" />
     <Compile Include="Model\NeuralNetwork.cs" />
     <Compile Include="Services\DataAnalyzerService.cs" />
@@ -154,7 +155,7 @@
     </Compile>
     <Compile Include="Contracts\AppSettings.cs" />
     <Compile Include="Contracts\Question.cs" />
-    <Compile Include="Contracts\Response.cs" />
+    <Compile Include="Contracts\Responses.cs" />
     <Compile Include="Extractors\CsvExtractor.cs" />
     <Compile Include="Extractors\ICsvExtractor.cs" />
     <Compile Include="MainWindow.xaml.cs">

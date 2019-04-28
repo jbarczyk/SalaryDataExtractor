@@ -47,7 +47,9 @@ namespace SalaryDataAnalyzer
 
         void Train()
         {
-            if(TrainingDataInput == null || TrainingDataOutput == null || TrainingDataInput.GetLength(0) != TrainingDataOutput.GetLength(0))
+            if(TrainingDataInput == null ||
+               TrainingDataOutput == null ||
+               TrainingDataInput.GetLength(0) != TrainingDataOutput.GetLength(0))
             {
                 throw new Exception("Incorrect training data.");
             }
@@ -67,7 +69,9 @@ namespace SalaryDataAnalyzer
 
                 currentEpoch++;
                 if ((Epochs != 0) && (currentEpoch > Epochs))
+                {
                     break;
+                }
             }
 
         }
