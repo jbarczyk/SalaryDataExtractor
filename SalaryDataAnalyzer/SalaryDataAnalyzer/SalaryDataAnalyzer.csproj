@@ -137,12 +137,12 @@
     <Compile Include="Normalizers\CountryNormalizer.cs" />
     <Compile Include="Normalizers\DevTypeNormalizer.cs" />
     <Compile Include="Normalizers\EmploymentNormalizer.cs" />
-    <Compile Include="Normalizers\RespFormalEducation.cs" />
+    <Compile Include="Normalizers\FormalEducationNormalizer.cs" />
     <Compile Include="Contracts\ResponseNormalizerBase.cs" />
-    <Compile Include="Normalizers\RespStudent.cs" />
-    <Compile Include="Normalizers\RespYearsCoding.cs" />
     <Compile Include="Contracts\Survey.cs" />
     <Compile Include="Model\NeuralNetwork.cs" />
+    <Compile Include="Normalizers\StudentNormalizer.cs" />
+    <Compile Include="Normalizers\YearsCodingNormalizer.cs" />
     <Compile Include="Services\DataAnalyzerService.cs" />
     <Compile Include="Services\IDataAnalyzerService.cs" />
     <Page Include="MainWindow.xaml">

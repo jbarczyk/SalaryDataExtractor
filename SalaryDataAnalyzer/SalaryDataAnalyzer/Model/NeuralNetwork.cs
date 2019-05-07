@@ -13,7 +13,7 @@ namespace SalaryDataAnalyzer
         public double LearningRate { get; set; } = 0.1;
         public double Momentum { get; set; } = 0.0;
         public double SigmoidAlphaValue { get; set; } = 2.0;
-        public int Epochs { get; set; } = 100;
+        public int Epochs { get; set; } = 1000;
         public int NeuronsInFirstLayer { get; set; } = 10;
 
         // data needed for training
@@ -49,12 +49,12 @@ namespace SalaryDataAnalyzer
         {
             if(TrainingDataInput == null ||
                TrainingDataOutput == null ||
-               TrainingDataInput.GetLength(0) != TrainingDataOutput.GetLength(0))
+               TrainingDataInput.Length != TrainingDataOutput.Length)
             {
                 throw new Exception("Incorrect training data.");
             }
 
-            network = new ActivationNetwork(new BipolarSigmoidFunction(SigmoidAlphaValue), TrainingDataInput.GetLength(1), NeuronsInFirstLayer, 1);
+            network = new ActivationNetwork(new BipolarSigmoidFunction(SigmoidAlphaValue), TrainingDataInput[0].Length, NeuronsInFirstLayer, 1);
             teacher = new BackPropagationLearning(network)
             {
                 LearningRate = LearningRate,

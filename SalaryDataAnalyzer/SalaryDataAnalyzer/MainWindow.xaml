@@ -38,12 +38,29 @@
                 <RowDefinition Height = "*" />
             </Grid.RowDefinitions>
 
-            <StackPanel Margin="0,0,-89,0">
-                <Button Name="LoadButton" Content="Load questions" Click="Button_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,20,20,0"/>
-                <Button Name="CalculateButton" IsEnabled="False" Content="Calculate amount" Click="Calculate_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,5,20,0"/>
-                <Label Name="AnswerLabel" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27"/>
-                <Button x:Name="ShowButton" IsEnabled="False" Content="Show responses" Click="Show_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,0,20,0"/>
-            </StackPanel>
+            <Grid Margin="10,0,-81,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width = "auto" />
+                    <ColumnDefinition Width = "auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height = "*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Margin="0,0,0,0" Grid.Row="0" Grid.Column="0">
+                    <Button Name="LoadButton" Content="Load questions" Click="Button_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="27" Margin="0,20,20,0"/>
+                    <Button Name="CalculateButton" IsEnabled="False" Content="Calculate amount" Click="Calculate_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="27" Margin="0,5,20,0"/>
+                    <Label x:Name="AnswerLabel" VerticalAlignment="Top" Height="27" Margin="0,0,0,0" HorizontalAlignment="Left" Width="128"/>
+                    <Button x:Name="ShowButton" IsEnabled="False" Content="Show responses" Click="Show_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="27" Margin="0,0,20,0"/>
+                </StackPanel>
+                <StackPanel Margin="133,0,35,0" Grid.Row="0" Grid.ColumnSpan="2">
+                    <Button Name="CreateButton" Content="Create network"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,20,20,0" Click="CreateButton_Click" IsEnabled="False"/>
+                    <Button Name="TrainButton" Content="Train"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,5,20,0" Click="TrainButton_Click" IsEnabled="False"/>
+                    <Label Name="ErrorLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="27" Margin="0,0,0,0"/>
+                    <Button Name="CancelTrainButton" Content="Cancel"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,0,20,0" Click="CancelTrainButton_Click" IsEnabled="False"/>
+                </StackPanel>
+            </Grid>
             <DataGrid AutoGenerateColumns="False" 
                       Grid.Row="1" Grid.Column="0"
                       x:Name="answerGrid"
