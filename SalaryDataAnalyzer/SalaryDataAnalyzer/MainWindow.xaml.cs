@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SalaryDataAnalyzer.Contracts;
 using SalaryDataAnalyzer.Extractors;
+using SalaryDataAnalyzer.Factories;
 using SalaryDataAnalyzer.Services;
 
 namespace SalaryDataAnalyzer
@@ -153,16 +154,8 @@ namespace SalaryDataAnalyzer
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            var normalizers = new ResponseNormalizerBase[] {
-                new CountryNormalizer(),
-                new StudentNormalizer(),
-                new EmploymentNormalizer(),
-                new FormalEducationNormalizer(),
-                new CompanySizeNormalizer(),
-                new DevTypeNormalizer(),
-                new YearsCodingNormalizer(),
-                new ConvertedSalaryNormalizer()
-            };
+            var factory = new NormalizersFactory();
+            var normalizers = factory.CreateNormalizers();
 
             var questions = _survey.Questions.ToArray();     
             

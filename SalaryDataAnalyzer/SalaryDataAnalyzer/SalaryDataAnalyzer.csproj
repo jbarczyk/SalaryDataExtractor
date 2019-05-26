@@ -132,10 +132,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Factories\NormalizersFactory.cs" />
     <Compile Include="Normalizers\CompanySizeNormalizer.cs" />
     <Compile Include="Normalizers\ConvertedSalaryNormalizer.cs" />
-    <Compile Include="Normalizers\CountryNormalizer.cs" />
-    <Compile Include="Normalizers\DevTypeNormalizer.cs" />
+    <Compile Include="Normalizers\GenericCountryNormalizer.cs" />
+    <Compile Include="Normalizers\GenericDevTypeNormalizer.cs" />
     <Compile Include="Normalizers\EmploymentNormalizer.cs" />
     <Compile Include="Normalizers\FormalEducationNormalizer.cs" />
     <Compile Include="Contracts\ResponseNormalizerBase.cs" />

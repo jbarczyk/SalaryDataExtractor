@@ -5,11 +5,17 @@ using System.Linq;
 
 namespace SalaryDataAnalyzer.Contracts
 {
-    public class DevTypeNormalizer : ResponseNormalizerBase
+    public class GenericDevTypeNormalizer : ResponseNormalizerBase
     {
+        private readonly string _currentDevType;
         public override string HeaderValue => "DevType";
         protected override IDictionary<string, decimal> ResponseScale
             => throw new NotSupportedException();
+
+        public GenericDevTypeNormalizer(string devType)
+        {
+            _currentDevType = devType;
+        }
 
         private readonly IDictionary<string, int> _devTypes = new Dictionary<string, int>
         {
@@ -40,20 +46,14 @@ namespace SalaryDataAnalyzer.Contracts
             //DevType has many values sorted from the most important
             var separated = rawData.Split(';');
 
-            var types = _devTypes
+            var type = _devTypes
                 .Where(x => separated.Contains(x.Key))
-                .Select(x => x.Value);
+                .Select(x => x.Value)
+                .First();
 
-            var result = 0;
-            if (types.Any())
-            {
-                result = types.Aggregate(result,
-                    (sum, current) => sum |= current);
-            }
-
-            return result == 0
-                ? new decimal?()
-                : (decimal)result / _devTypes.Sum(x => x.Value);
+            return _currentDevType.Equals(type)
+                ? 1m
+                : 0m;
         }
     }
 }

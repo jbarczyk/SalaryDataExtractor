@@ -8,5 +8,6 @@ namespace SalaryDataAnalyzer.Extractors
     {
         Task<IEnumerable<Question>> GetHeaders();
         Survey GetSurvey();
+        List<string> GetCountries();
     }
 }
