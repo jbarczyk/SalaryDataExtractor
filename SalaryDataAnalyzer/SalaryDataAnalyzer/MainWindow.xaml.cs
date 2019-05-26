@@ -70,19 +70,6 @@ namespace SalaryDataAnalyzer
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
         {
-            // temporary
-            // I ran out of unused buttons to check if network works
-            _network.NetworkInput = new double[] { 0, 1, 0 };
-            _network.Calculate();
-            System.Console.WriteLine(_network.NetworkResult[0]);
-
-            _network.NetworkInput = new double[] { 0, 1, 1 };
-            _network.Calculate();
-            System.Console.WriteLine(_network.NetworkResult[0]);
-
-            _network.NetworkInput = new double[] { 0, 0, 0 };
-            _network.Calculate();
-            System.Console.WriteLine(_network.NetworkResult[0]);
 
             var headers = new List<string>();
             foreach (var item in questionGrid.SelectedItems)
@@ -159,9 +146,26 @@ namespace SalaryDataAnalyzer
 
             var questions = _survey.Questions.ToArray();     
             
-            var responses = _survey.Responses.Select(x => x.Answers.Select((a, i) => normalizers.FirstOrDefault(n => n.HeaderValue.Equals(questions[i].Header))?.NormalizeData(a)));
-            System.Console.WriteLine(responses.ToArray().ToArray());
-
+            var responses = _survey.Responses.Select(x => x.Answers.Select((a, i) => normalizers.FirstOrDefault(n => n.HeaderValue.Equals(questions[i].Header))?.NormalizeData(a)).Where(i => i != null).ToArray());
+            foreach(var x in responses)
+            {
+                if (x.Count() >= 5)
+                {
+                    foreach (var y in x)
+                    {
+                        if (y != null)
+                        {
+                            System.Console.Write(System.String.Format("{0,10}", System.Math.Round((double)y, 5)));
+                        } else
+                        {
+                            System.Console.Write(System.String.Format("{0,10}", "null"));
+                        }
+                    }
+                    System.Console.Write('\n');
+                }
+            }
+            
+            
             // temp
             _network.TrainingDataInput = new double[4][] { new double[]{1,0,1}, new double[] { 1, 1, 0 }, new double[] { 1, 0, 1 }, new double[] { 1, 1, 0 } };
             _network.TrainingDataOutput = new double[4][] { new double[] { 0 }, new double[] { 1 }, new double[] { 0 }, new double[] { 1 } };

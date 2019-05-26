@@ -43,6 +43,11 @@ namespace SalaryDataAnalyzer.Contracts
 
         public override decimal? NormalizeData(string rawData)
         {
+            if(!_devTypes.TryGetValue(rawData, out var value))
+            {
+                return new decimal?();
+            }
+
             //DevType has many values sorted from the most important
             var separated = rawData.Split(';');
 
