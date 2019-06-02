@@ -1,6 +1,7 @@
 ﻿using AForge.Neuro;
 using AForge.Neuro.Learning;
 using System;
+using System.IO;
 using System.Threading;
 
 namespace SalaryDataAnalyzer
@@ -63,13 +64,25 @@ namespace SalaryDataAnalyzer
 
             int currentEpoch = 1;
 
+            
+            var csv = new System.Text.StringBuilder();
+
             while (!stopTraining)
             {
                 double error = teacher.RunEpoch(TrainingDataInput, TrainingDataOutput) / TrainingDataInput.GetLength(0);
+                System.Console.WriteLine("Training error: " + error + " | Epoch: " + currentEpoch );
 
+                // save to file
+                if (currentEpoch % 2 == 0)
+                {
+                    var newLine = (100.0 - error) + ";";
+                    csv.Append(newLine);
+                }
+                
                 currentEpoch++;
                 if ((Epochs != 0) && (currentEpoch > Epochs))
                 {
+                    File.WriteAllText("./error_data_every50steps.csv", csv.ToString());
                     break;
                 }
             }

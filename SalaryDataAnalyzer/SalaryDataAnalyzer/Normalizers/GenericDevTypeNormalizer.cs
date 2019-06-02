@@ -43,7 +43,7 @@ namespace SalaryDataAnalyzer.Contracts
 
         public override decimal? NormalizeData(string rawData)
         {
-            if(!_devTypes.TryGetValue(rawData, out var value))
+            if(rawData.ToUpper().Equals("NA"))
             {
                 return new decimal?();
             }
@@ -51,12 +51,12 @@ namespace SalaryDataAnalyzer.Contracts
             //DevType has many values sorted from the most important
             var separated = rawData.Split(';');
 
-            var type = _devTypes
+            /*var type = _devTypes
                 .Where(x => separated.Contains(x.Key))
                 .Select(x => x.Value)
-                .First();
+                .First();*/
 
-            return _currentDevType.Equals(type)
+            return separated.Any(x => x.Equals(_currentDevType))
                 ? 1m
                 : 0m;
         }

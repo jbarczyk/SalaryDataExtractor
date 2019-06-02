@@ -4,7 +4,7 @@ namespace SalaryDataAnalyzer.Contracts
 {
     class StudentNormalizer : ResponseNormalizerBase
     {
-        public override string HeaderValue => "FormalEducation";
+        public override string HeaderValue => "Student";
         protected override IDictionary<string, decimal> ResponseScale
             => new Dictionary<string, decimal>
             {

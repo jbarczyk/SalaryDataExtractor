@@ -7,8 +7,8 @@ namespace SalaryDataAnalyzer.Factories
     {
         public IEnumerable<ResponseNormalizerBase> CreateNormalizers()
         {
-            yield return new CompanySizeNormalizer();
             yield return new ConvertedSalaryNormalizer();
+            yield return new CompanySizeNormalizer();
             yield return new EmploymentNormalizer();
             yield return new FormalEducationNormalizer();
             yield return new StudentNormalizer();

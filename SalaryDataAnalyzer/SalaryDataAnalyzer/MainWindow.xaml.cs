@@ -144,31 +144,68 @@ namespace SalaryDataAnalyzer
             var factory = new NormalizersFactory();
             var normalizers = factory.CreateNormalizers();
 
-            var questions = _survey.Questions.ToArray();     
-            
-            var responses = _survey.Responses.Select(x => x.Answers.Select((a, i) => normalizers.FirstOrDefault(n => n.HeaderValue.Equals(questions[i].Header))?.NormalizeData(a)).Where(i => i != null).ToArray());
-            foreach(var x in responses)
+            var questions = _survey.Questions.ToArray();
+            var responses = _survey.Responses.Take(1000);
+
+            /* var tasks = _survey.Responses.Select((x, i) => new { x, i }).GroupBy(x => x.i / 2500).Select(x => Task.Run(x.Answers.SelectMany((a, i) =>
             {
-                if (x.Count() >= 5)
+                var correctNormalizers = normalizers.Where(n => n.HeaderValue.Equals(questions[i].Header));
+                return correctNormalizers.Select(n => n.NormalizeData(a));
+            }).Where(vec => !vec.Contains(null))));
+
+            var result = await Task.WhenAll(tasks); //albo Wait All, to co zwraca taska
+            var inputVectors = result.SelectMany(x => x);
+            */
+            var outputVectors = new List<List<decimal>>();
+            var inputVectors = responses.Select((x, idx) => 
+            {
+                System.Console.WriteLine("inputVectors: " + (idx + 1) + " / " + responses.Count());
+                return x.Answers.SelectMany((a, i) =>
+                {
+                    var correctNormalizers = normalizers.Where(n => n.HeaderValue.Equals(questions[i].Header));
+                    return correctNormalizers.Select(n => n.NormalizeData(a));
+                });
+            }).ToList().Where(vec => !vec.Contains(null)).ToList().Select((_vec, idx) => 
+            {
+                System.Console.WriteLine("outputVectors: " + (idx + 1));
+                var temp = new List<decimal>
+                {
+                    _vec.Last().Value
+                };
+                outputVectors.Add(temp);
+                return _vec.Where(y => !y.Equals(_vec.Last()));
+            });
+
+            /*foreach (var x in inputVectors)
+            {
+                // if (x.Count() >= normalizers.Count() - 1)
                 {
                     foreach (var y in x)
                     {
                         if (y != null)
                         {
-                            System.Console.Write(System.String.Format("{0,10}", System.Math.Round((double)y, 5)));
+                            System.Console.Write(System.String.Format("{0,15}", System.Math.Round((double)y, 5)));
                         } else
                         {
-                            System.Console.Write(System.String.Format("{0,10}", "null"));
+                            System.Console.Write(System.String.Format("{0,15}", "null"));
                         }
                     }
                     System.Console.Write('\n');
                 }
-            }
-            
-            
+            }*/
+
+                /*outputVectors = inputVectors.Select((x, idx) => {
+                System.Console.WriteLine("outputVectors: " + (idx + 1) + " / " + inputVectors.Count());
+                var temp = new List<decimal?>();
+                temp.Add(x.Last().Value);
+                return temp;
+            });*/
+
+            // inputVectors = inputVectors.Select(x => x.Where(y => !y.Equals(x.Last())));
+
             // temp
-            _network.TrainingDataInput = new double[4][] { new double[]{1,0,1}, new double[] { 1, 1, 0 }, new double[] { 1, 0, 1 }, new double[] { 1, 1, 0 } };
-            _network.TrainingDataOutput = new double[4][] { new double[] { 0 }, new double[] { 1 }, new double[] { 0 }, new double[] { 1 } };
+            _network.TrainingDataInput = inputVectors.Select(x => x.Select(y => (double) y.Value).ToArray()).ToArray();
+            _network.TrainingDataOutput = outputVectors.Select(x => x.Select(y => (double) y).ToArray()).ToArray();
 
             TrainButton.IsEnabled = true;
         }

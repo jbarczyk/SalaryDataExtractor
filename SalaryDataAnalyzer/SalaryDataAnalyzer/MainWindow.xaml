@@ -57,7 +57,7 @@
                 <StackPanel Margin="133,0,35,0" Grid.Row="0" Grid.ColumnSpan="2">
                     <Button Name="CreateButton" Content="Create network"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,20,20,0" Click="CreateButton_Click" IsEnabled="False"/>
                     <Button Name="TrainButton" Content="Train"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,5,20,0" Click="TrainButton_Click" IsEnabled="False"/>
-                    <Label Name="ErrorLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="27" Margin="0,0,0,0"/>
+                    <Label Name="ProgressLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="27" Margin="0,0,0,0"/>
                     <Button Name="CancelTrainButton" Content="Cancel"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="128" Height="27" Margin="0,0,20,0" Click="CancelTrainButton_Click" IsEnabled="False"/>
                 </StackPanel>
             </Grid>
