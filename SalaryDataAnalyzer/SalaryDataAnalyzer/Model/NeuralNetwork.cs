@@ -69,8 +69,9 @@ namespace SalaryDataAnalyzer
 
             while (!stopTraining)
             {
+                // error - squared error (difference between current network's output and desired output) divided by 2
                 double error = teacher.RunEpoch(TrainingDataInput, TrainingDataOutput) / TrainingDataInput.GetLength(0);
-                System.Console.WriteLine("Training error: " + error + " | Epoch: " + currentEpoch );
+                System.Console.WriteLine("Epoch: " + currentEpoch + " | Error: " + error );
 
                 // save to file
                 if (currentEpoch % 2 == 0)
