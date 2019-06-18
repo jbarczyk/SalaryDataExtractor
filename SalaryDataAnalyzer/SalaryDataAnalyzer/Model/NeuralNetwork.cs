@@ -52,7 +52,8 @@ namespace SalaryDataAnalyzer
                TrainingDataOutput == null ||
                TrainingDataInput.Length != TrainingDataOutput.Length)
             {
-                throw new Exception("Incorrect training data.");
+                System.Windows.MessageBox.Show("Incorrect training data! :(");
+                return;
             }
 
             network = new ActivationNetwork(new BipolarSigmoidFunction(SigmoidAlphaValue), TrainingDataInput[0].Length, NeuronsInFirstLayer, 1);
@@ -76,14 +77,15 @@ namespace SalaryDataAnalyzer
                 // save to file
                 if (currentEpoch % 2 == 0)
                 {
-                    var newLine = (100.0 - error) + ";";
+                    var newLine = (error) + ";";
                     csv.Append(newLine);
                 }
                 
                 currentEpoch++;
                 if ((Epochs != 0) && (currentEpoch > Epochs))
                 {
-                    File.WriteAllText("./error_data_every50steps.csv", csv.ToString());
+                    if (!Directory.Exists("./Saved")) Directory.CreateDirectory("./Saved");
+                    File.WriteAllText("./Saved/error_data.csv", csv.ToString());
                     break;
                 }
             }
@@ -100,5 +102,80 @@ namespace SalaryDataAnalyzer
             NetworkResult = network.Compute(NetworkInput);
         }
 
+        public bool Save()
+        {
+            if (network != null)
+            {
+                if (!Directory.Exists("./Saved")) Directory.CreateDirectory("./Saved");
+                network.Save("./Saved/saved_network.bin");
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
+        public bool Load()
+        {
+            if(File.Exists("./Saved/saved_network.bin")) { 
+            network = (ActivationNetwork) Network.Load("./Saved/saved_network.bin");
+            if (network != null) { return true; } else { return false; }
+            } else
+            {
+                System.Console.WriteLine("Can't find \"./Saved/saved_network.bin\" file.");
+                return false;
+            }
+        }
+
+        public bool SaveInputs()
+        {
+            if (!Directory.Exists("./Saved")) Directory.CreateDirectory("./Saved");
+
+            using (Stream stream = File.Open("./Saved/training_data_input.bin", FileMode.Create))
+            {
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                binaryFormatter.Serialize(stream, TrainingDataInput);
+            }
+
+            using (Stream stream = File.Open("./Saved/training_data_output.bin", FileMode.Create))
+            {
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                binaryFormatter.Serialize(stream, TrainingDataOutput);
+            }
+
+            if (File.Exists("./Saved/training_data_input.bin") && File.Exists("./Saved/training_data_output.bin"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool LoadInputs()
+        {
+            if (File.Exists("./Saved/training_data_input.bin") && File.Exists("./Saved/training_data_output.bin"))
+            {
+                using (Stream stream = File.Open("./Saved/training_data_input.bin", FileMode.Open))
+                {
+                    var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                     TrainingDataInput = (double[][])binaryFormatter.Deserialize(stream);
+                }
+
+                using (Stream stream = File.Open("./Saved/training_data_output.bin", FileMode.Open))
+                {
+                    var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                    TrainingDataOutput = (double[][])binaryFormatter.Deserialize(stream);
+                }
+
+                if(TrainingDataInput != null && TrainingDataOutput != null)
+                {
+                    return true;
+                }
+            }
+            System.Console.WriteLine("Can't find \"./Saved/training_data_input.bin\" and \"./Saved/training_data_output.bin\" files.");
+            return false;
+        }
     }
 }

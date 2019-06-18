@@ -56,6 +56,8 @@ namespace SalaryDataAnalyzer
             await task;
             CreateButton.IsEnabled = true;
             CalculateButton.IsEnabled = true;
+            LoadNetworkButton.IsEnabled = true;
+            LoadInputsButton.IsEnabled = true;
         }
 
         private void FitToContent(DataGrid grid)
@@ -80,6 +82,7 @@ namespace SalaryDataAnalyzer
 
             AnswerLabel.Content = _service.GetCountOfFullAnswers(
                 _survey, headers);
+            ShowButton.IsEnabled = true;
         }
 
         private class DataObject
@@ -104,7 +107,7 @@ namespace SalaryDataAnalyzer
                 .Distinct()
                 .OrderBy(x => x))
             {
-                var newLine = response + ",";
+                var newLine = response + ";";
                 csv.Append(newLine);
 
                 list.Add(new DataObject
@@ -113,7 +116,8 @@ namespace SalaryDataAnalyzer
                 });
             }
 
-            File.WriteAllText("./options.csv", csv.ToString());
+            if (!Directory.Exists("./Saved")) Directory.CreateDirectory("./Saved");
+            File.WriteAllText("./Saved/question_options.csv", csv.ToString());
 
             answerGrid.ItemsSource = list;
             FitToContent(answerGrid);
@@ -122,25 +126,24 @@ namespace SalaryDataAnalyzer
         private void TrainButton_Click(object sender, RoutedEventArgs e)
         {
             CreateButton.IsEnabled = false;
-            CancelTrainButton.IsEnabled = true;
 
             _network.StartTraining();
 
-            CancelTrainButton.IsEnabled = false;
             CreateButton.IsEnabled = true;
+            SaveNetworkButton.IsEnabled = true;
         }
 
         private void CancelTrainButton_Click(object sender, RoutedEventArgs e)
         {
             _network.CancelTraining();
 
-            CancelTrainButton.IsEnabled = false;
             CreateButton.IsEnabled = true;
             TrainButton.IsEnabled = true;
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
+            LoadNetworkButton.IsEnabled = false;
             var factory = new NormalizersFactory();
             var normalizers = factory.CreateNormalizers();
 
@@ -159,24 +162,20 @@ namespace SalaryDataAnalyzer
             var outputVectors = new List<List<decimal>>();
             var inputVectors = responses.Select((x, idx) => 
             {
-                System.Console.WriteLine("inputVectors: " + (idx + 1) + " / " + responses.Count());
+                //System.Console.WriteLine("input:\t\t\t" + (idx + 1) + " / " + responses.Count());
                 return x.Answers.SelectMany((a, i) =>
                 {
                     var correctNormalizers = normalizers.Where(n => n.HeaderValue.Equals(questions[i].Header));
                     return correctNormalizers.Select(n => n.NormalizeData(a));
                 });
-            }).ToList().Where(vec => !vec.Contains(null)).ToList().Select((_vec, idx) => 
+            }).Where(vec => !vec.Contains(null)).Select((_vec, idx) => 
             {
-                System.Console.WriteLine("outputVectors: " + (idx + 1));
-                var temp = new List<decimal>
-                {
-                    _vec.Last().Value
-                };
-                outputVectors.Add(temp);
+                //System.Console.WriteLine("correct: " + (idx + 1));
+                outputVectors.Add(new List<decimal>{_vec.Last().Value});
                 return _vec.Where(y => !y.Equals(_vec.Last()));
             });
 
-            /*foreach (var x in inputVectors)
+            foreach (var x in inputVectors)
             {
                 // if (x.Count() >= normalizers.Count() - 1)
                 {
@@ -192,7 +191,7 @@ namespace SalaryDataAnalyzer
                     }
                     System.Console.Write('\n');
                 }
-            }*/
+            }
 
                 /*outputVectors = inputVectors.Select((x, idx) => {
                 System.Console.WriteLine("outputVectors: " + (idx + 1) + " / " + inputVectors.Count());
@@ -208,6 +207,45 @@ namespace SalaryDataAnalyzer
             _network.TrainingDataOutput = outputVectors.Select(x => x.Select(y => (double) y).ToArray()).ToArray();
 
             TrainButton.IsEnabled = true;
+            LoadNetworkButton.IsEnabled = true;
+            SaveInputsButton.IsEnabled = true;
+        }
+
+        private void LoadNetwork_Click(object sender, RoutedEventArgs e)
+        {
+            if (_network.Load())
+            {
+                MessageBox.Show("Network loaded");
+                SaveNetworkButton.IsEnabled = false;
+                TrainButton.IsEnabled = true;
+                LoadNetworkButton.IsEnabled = true;
+            }
+        }
+
+        private void SaveNetwork_Click(object sender, RoutedEventArgs e)
+        {
+            if(_network.Save())
+            {
+                MessageBox.Show("Network saved");
+            }
+        }
+
+        private void LoadInputs_Click(object sender, RoutedEventArgs e)
+        {
+            if(_network.LoadInputs())
+            {
+                MessageBox.Show("Network inputs loaded");
+                TrainButton.IsEnabled = true;
+                SaveInputsButton.IsEnabled = false;
+            }
+        }
+
+        private void SaveInputs_Click(object sender, RoutedEventArgs e)
+        {
+            if (_network.SaveInputs())
+            {
+                MessageBox.Show("Network inputs saved");
+            }
         }
     }
 }
