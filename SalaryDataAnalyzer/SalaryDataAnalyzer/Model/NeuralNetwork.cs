@@ -21,10 +21,6 @@ namespace SalaryDataAnalyzer
         public double[][] TrainingDataInput { get; set; }
         public double[][] TrainingDataOutput { get; set; }
 
-        // data needed for calculation
-        public double[] NetworkInput { get; set; }
-        public double[] NetworkResult { get; set; }
-
         private bool stopTraining = false;
 
         public void StartTraining()
@@ -92,14 +88,30 @@ namespace SalaryDataAnalyzer
 
         }
 
-        public void Calculate()
+        public double[] Calculate(double[] NetworkInput)
         {
             if (network == null)
             {
                 throw new Exception("Network untrained.");
             }
 
-            NetworkResult = network.Compute(NetworkInput);
+            return network.Compute(NetworkInput);
+        }
+
+        private double CalculateError(double[] NetworkInput, double[] ExpectedNetworkOutput)
+        {
+            return Math.Abs(Calculate(NetworkInput)[0] - ExpectedNetworkOutput[0]);
+        }
+
+        public double AverageErrorOfSet(double[][] TestDataInput, double[][] TestDataOutput)
+        {
+            var index = 0;
+            var average = 0.0;
+            for(;index < TestDataInput.GetLength(0); index++)
+            {
+                average += CalculateError(TestDataInput[index], TestDataOutput[index]);
+            }
+            return average / index;
         }
 
         public bool Save()

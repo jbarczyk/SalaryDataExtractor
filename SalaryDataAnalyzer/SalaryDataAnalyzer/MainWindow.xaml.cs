@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -147,8 +148,10 @@ namespace SalaryDataAnalyzer
             var factory = new NormalizersFactory();
             var normalizers = factory.CreateNormalizers();
 
+            var shuffledResponses = _survey.Responses.OrderBy(elem => Guid.NewGuid()); // shuffle
+
             var questions = _survey.Questions.ToArray();
-            var responses = _survey.Responses.Take(1000);
+            var responses = shuffledResponses.Take(1000);
 
             /* var tasks = _survey.Responses.Select((x, i) => new { x, i }).GroupBy(x => x.i / 2500).Select(x => Task.Run(x.Answers.SelectMany((a, i) =>
             {
@@ -162,7 +165,7 @@ namespace SalaryDataAnalyzer
             var outputVectors = new List<List<decimal>>();
             var inputVectors = responses.Select((x, idx) => 
             {
-                //System.Console.WriteLine("input:\t\t\t" + (idx + 1) + " / " + responses.Count());
+                System.Console.WriteLine("input:\t\t\t" + (idx + 1) + " / " + responses.Count());
                 return x.Answers.SelectMany((a, i) =>
                 {
                     var correctNormalizers = normalizers.Where(n => n.HeaderValue.Equals(questions[i].Header));
@@ -170,7 +173,7 @@ namespace SalaryDataAnalyzer
                 });
             }).Where(vec => !vec.Contains(null)).Select((_vec, idx) => 
             {
-                //System.Console.WriteLine("correct: " + (idx + 1));
+                System.Console.WriteLine("correct: " + (idx + 1));
                 outputVectors.Add(new List<decimal>{_vec.Last().Value});
                 return _vec.Where(y => !y.Equals(_vec.Last()));
             });
