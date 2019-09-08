@@ -95,6 +95,11 @@ namespace SalaryDataAnalyzer
         {
             var list = new ObservableCollection<DataObject>();
             var question = (Question)questionGrid.SelectedItem;
+            if(question == null)
+            {
+                System.Windows.MessageBox.Show("Select a question first");
+                return;
+            }
             var questionId = _survey.Questions.Select((q, i) => new { q, i })
                 .Where(x => x.q.Header.Equals(question.Header))
                 .FirstOrDefault()
@@ -134,12 +139,23 @@ namespace SalaryDataAnalyzer
             SaveNetworkButton.IsEnabled = true;
         }
 
+        private void TrainTestButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateButton.IsEnabled = false;
+
+            _network.StartTrainingAndTesting();
+
+            CreateButton.IsEnabled = true;
+            SaveNetworkButton.IsEnabled = true;
+        }
+
         private void CancelTrainButton_Click(object sender, RoutedEventArgs e)
         {
             _network.CancelTraining();
 
             CreateButton.IsEnabled = true;
             TrainButton.IsEnabled = true;
+            TrainTestButton.IsEnabled = true;
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
@@ -148,10 +164,10 @@ namespace SalaryDataAnalyzer
             var factory = new NormalizersFactory();
             var normalizers = factory.CreateNormalizers();
 
-            var shuffledResponses = _survey.Responses.OrderBy(elem => Guid.NewGuid()); // shuffle
+            //var shuffledResponses = _survey.Responses.OrderBy(elem => Guid.NewGuid()); // shuffle
 
             var questions = _survey.Questions.ToArray();
-            var responses = shuffledResponses.Take(1000);
+            var responses = _survey.Responses.Take(10000);
 
             /* var tasks = _survey.Responses.Select((x, i) => new { x, i }).GroupBy(x => x.i / 2500).Select(x => Task.Run(x.Answers.SelectMany((a, i) =>
             {
@@ -163,53 +179,45 @@ namespace SalaryDataAnalyzer
             var inputVectors = result.SelectMany(x => x);
             */
             var outputVectors = new List<List<decimal>>();
-            var inputVectors = responses.Select((x, idx) => 
+            var inputVectors = responses.Select((x, idx) =>
             {
-                System.Console.WriteLine("input:\t\t\t" + (idx + 1) + " / " + responses.Count());
+                // find vectors where all required answers exist and normalize them (with nulls at this point)
+                System.Console.WriteLine("input:\t" + (idx + 1) + " / " + responses.Count());
                 return x.Answers.SelectMany((a, i) =>
                 {
                     var correctNormalizers = normalizers.Where(n => n.HeaderValue.Equals(questions[i].Header));
                     return correctNormalizers.Select(n => n.NormalizeData(a));
                 });
-            }).Where(vec => !vec.Contains(null)).Select((_vec, idx) => 
+            }).Where(vec => !vec.Contains(null)).Select(x => 
             {
-                System.Console.WriteLine("correct: " + (idx + 1));
-                outputVectors.Add(new List<decimal>{_vec.Last().Value});
-                return _vec.Where(y => !y.Equals(_vec.Last()));
-            });
-
-            foreach (var x in inputVectors)
-            {
-                // if (x.Count() >= normalizers.Count() - 1)
+                outputVectors.Add(new List<decimal> { x.Last().Value });
+                foreach (var y in x)
                 {
-                    foreach (var y in x)
+                    if (y != null)
                     {
-                        if (y != null)
-                        {
-                            System.Console.Write(System.String.Format("{0,15}", System.Math.Round((double)y, 5)));
-                        } else
-                        {
-                            System.Console.Write(System.String.Format("{0,15}", "null"));
-                        }
+                        System.Console.Write(System.String.Format("{0,15}", System.Math.Round((double)y, 5)));
                     }
-                    System.Console.Write('\n');
+                    else
+                    {
+                        System.Console.Write(System.String.Format("{0,15}", "null"));
+                    }
                 }
-            }
+                System.Console.Write('\n');
 
-                /*outputVectors = inputVectors.Select((x, idx) => {
-                System.Console.WriteLine("outputVectors: " + (idx + 1) + " / " + inputVectors.Count());
-                var temp = new List<decimal?>();
-                temp.Add(x.Last().Value);
-                return temp;
-            });*/
+                return x.Select(y => (double)y.Value).Reverse().Skip(1).Reverse().ToArray();
+            }).ToArray();
+            
+            //here we take 80% for training and 20% for testing
+            var vectorCount = inputVectors.Count();
 
-            // inputVectors = inputVectors.Select(x => x.Where(y => !y.Equals(x.Last())));
+            _network.TrainingDataInput = inputVectors.Take((int)(vectorCount * 0.8)).ToArray();
+            _network.TrainingDataOutput = outputVectors.Take((int)(vectorCount * 0.8)).Select(x => x.Select(y => (double) y).ToArray()).ToArray();
 
-            // temp
-            _network.TrainingDataInput = inputVectors.Select(x => x.Select(y => (double) y.Value).ToArray()).ToArray();
-            _network.TrainingDataOutput = outputVectors.Select(x => x.Select(y => (double) y).ToArray()).ToArray();
+            _network.TestingDataInput = inputVectors.Skip((int)(vectorCount * 0.8)).ToArray();
+            _network.TestingDataOutput = outputVectors.Skip((int)(vectorCount * 0.8)).Select(x => x.Select(y => (double)y).ToArray()).ToArray();
 
             TrainButton.IsEnabled = true;
+            TrainTestButton.IsEnabled = true;
             LoadNetworkButton.IsEnabled = true;
             SaveInputsButton.IsEnabled = true;
         }
@@ -221,6 +229,7 @@ namespace SalaryDataAnalyzer
                 MessageBox.Show("Network loaded");
                 SaveNetworkButton.IsEnabled = false;
                 TrainButton.IsEnabled = true;
+                TrainTestButton.IsEnabled = true;
                 LoadNetworkButton.IsEnabled = true;
             }
         }
@@ -239,6 +248,7 @@ namespace SalaryDataAnalyzer
             {
                 MessageBox.Show("Network inputs loaded");
                 TrainButton.IsEnabled = true;
+                TrainTestButton.IsEnabled = true;
                 SaveInputsButton.IsEnabled = false;
             }
         }

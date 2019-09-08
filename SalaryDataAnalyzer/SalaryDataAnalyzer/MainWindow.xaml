@@ -55,6 +55,7 @@
                 <Button x:Name="LoadInputsButton" Content="Load inputs"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="27" Margin="6,5,7,0" Click="LoadInputs_Click" IsEnabled="False"/>
                 <Button x:Name="SaveInputsButton" Content="Save inputs"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="27" Margin="6,5,7,0" Click="SaveInputs_Click" IsEnabled="False"/>
                 <Button x:Name="TrainButton" Content="Train"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="27" Margin="0,37,0,0" Click="TrainButton_Click" IsEnabled="False"/>
+                <Button x:Name="TrainTestButton" Content="Train &amp; Test"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="27" Margin="0,5,0,0" Click="TrainTestButton_Click" IsEnabled="False"/>
                 <Button x:Name="LoadNetworkButton" Content="Load network"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="27" Margin="6,5,7,0" Click="LoadNetwork_Click" IsEnabled="False"/>
                 <Button x:Name="SaveNetworkButton" Content="Save network"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="27" Margin="6,5,7,0" Click="SaveNetwork_Click" IsEnabled="False"/>
             </StackPanel>
