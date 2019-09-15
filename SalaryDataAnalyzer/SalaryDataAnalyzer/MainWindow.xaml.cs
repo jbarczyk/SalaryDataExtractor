@@ -137,6 +137,7 @@ namespace SalaryDataAnalyzer
 
             CreateButton.IsEnabled = true;
             SaveNetworkButton.IsEnabled = true;
+            CalcButton.IsEnabled = true;
         }
 
         private void TrainTestButton_Click(object sender, RoutedEventArgs e)
@@ -147,6 +148,7 @@ namespace SalaryDataAnalyzer
 
             CreateButton.IsEnabled = true;
             SaveNetworkButton.IsEnabled = true;
+            CalcButton.IsEnabled = true;
         }
 
         private void CancelTrainButton_Click(object sender, RoutedEventArgs e)
@@ -167,7 +169,7 @@ namespace SalaryDataAnalyzer
             //var shuffledResponses = _survey.Responses.OrderBy(elem => Guid.NewGuid()); // shuffle
 
             var questions = _survey.Questions.ToArray();
-            var responses = _survey.Responses.Take(10000);
+            var responses = _survey.Responses;
 
             /* var tasks = _survey.Responses.Select((x, i) => new { x, i }).GroupBy(x => x.i / 2500).Select(x => Task.Run(x.Answers.SelectMany((a, i) =>
             {
@@ -259,6 +261,12 @@ namespace SalaryDataAnalyzer
             {
                 MessageBox.Show("Network inputs saved");
             }
+        }
+
+        private void CalcButton_Click(object sender, RoutedEventArgs e)
+        {
+            //hardcoded input vector to check
+            Console.WriteLine("Result: " + _network.Calculate(new double[]{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0.18841, 0.625, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0.5})[0] + ". Expected 0,05556."); // 0,05556
         }
     }
 }

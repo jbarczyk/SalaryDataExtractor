@@ -12,10 +12,10 @@ namespace SalaryDataAnalyzer
         private BackPropagationLearning teacher;
 
         public double LearningRate { get; set; } = 0.1;
-        public double Momentum { get; set; } = 0.0;
+        public double Momentum { get; set; } = 0.05;
         public double SigmoidAlphaValue { get; set; } = 2.0;
-        public int Epochs { get; set; } = 1000;
-        public int NeuronsInFirstLayer { get; set; } = 10;
+        public int Epochs { get; set; } = 200;
+        public int NeuronsInFirstLayer { get; set; } = 4;
 
         // data needed for training
         public double[][] TrainingDataInput { get; set; }
@@ -131,8 +131,8 @@ namespace SalaryDataAnalyzer
             {
                 // error - squared error (difference between current network's output and desired output) divided by 2
                 teacher.RunEpoch(TrainingDataInput, TrainingDataOutput);
-                System.Console.WriteLine("Epoch: " + currentEpoch);
-                if(currentEpoch % 10 == 0)
+                // System.Console.WriteLine("Epoch: " + currentEpoch);
+                // if(currentEpoch % 10 == 0)
                 {
                     var error = AverageErrorOfSet();
                     System.Console.WriteLine("Epoch: " + currentEpoch + " | Error: " + error);
@@ -172,7 +172,7 @@ namespace SalaryDataAnalyzer
         {
             var index = 0;
             var average = 0.0;
-            for(;index < TestingDataInput.GetLength(0); index++)
+            for(;index < TestingDataInput.Length; index++)
             {
                 average += CalculateError(TestingDataInput[index], TestingDataOutput[index]);
             }
@@ -245,6 +245,7 @@ namespace SalaryDataAnalyzer
 
             if (File.Exists("./Saved/training_data_input.bin") && File.Exists("./Saved/training_data_output.bin") && File.Exists("./Saved/testing_data_input.bin") && File.Exists("./Saved/testing_data_output.bin"))
             {
+                System.Console.WriteLine("Saved " + TestingDataInput.Length + " (testing) and " + TrainingDataInput.Length + " (training) vectors.");
                 return true;
             }
             else
@@ -283,6 +284,7 @@ namespace SalaryDataAnalyzer
 
                 if (TrainingDataInput != null && TrainingDataOutput != null && TestingDataInput != null && TestingDataOutput != null)
                 {
+                    System.Console.WriteLine("Loaded " + TestingDataInput.Length + " (testing) and " + TrainingDataInput.Length + " (training) vectors.");
                     return true;
                 }
             }

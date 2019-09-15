@@ -13,7 +13,7 @@ namespace SalaryDataAnalyzer.Factories
             yield return new FormalEducationNormalizer();
             yield return new StudentNormalizer();
             yield return new YearsCodingNormalizer();
-            
+
             yield return new GenericDevTypeNormalizer("Back-end developer");
             yield return new GenericDevTypeNormalizer("C-suite executive (CEO, CTO, etc.)");
             yield return new GenericDevTypeNormalizer("Data or business analyst");
@@ -34,7 +34,7 @@ namespace SalaryDataAnalyzer.Factories
             yield return new GenericDevTypeNormalizer("QA or test developer");
             yield return new GenericDevTypeNormalizer("Student");
             yield return new GenericDevTypeNormalizer("System administrator");
-            
+
             yield return new GenericCountryNormalizer(new List<string>() { "Republic of Korea", "Bolivia", "Lebanon", "Panama", "Dominican Republic", "Zimbabwe", "Ethiopia", "Georgia", "Uzbekistan", "Venezuela", "Belarus", "Slovakia", "Malawi", "Uruguay", "Jordan", "South Korea", "Turkey" });
             yield return new GenericCountryNormalizer(new List<string>() { "Morocco", "Austria", "Thailand", "Croatia", "Argentina", "China", "Benin", "Sweden", "Nigeria", "Philippines", "United Arab Emirates", "Sri Lanka", "Luxembourg", "Bosnia and Herzegovina", "Ireland", "Poland", "Canada" });
             yield return new GenericCountryNormalizer(new List<string>() { "New Zealand", "Saudi Arabia", "Belgium", "Libyan Arab Jamahiriya", "Germany", "South Africa", "Japan", "Myanmar", "Uganda", "India", "Romania", "Ukraine", "United Kingdom", "Iceland", "Italy", "Brazil", "Australia" });
