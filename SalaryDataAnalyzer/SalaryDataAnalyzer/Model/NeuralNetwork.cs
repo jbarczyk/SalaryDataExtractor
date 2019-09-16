@@ -12,10 +12,10 @@ namespace SalaryDataAnalyzer
         private BackPropagationLearning teacher;
 
         public double LearningRate { get; set; } = 0.1;
-        public double Momentum { get; set; } = 0.05;
+        public double Momentum { get; set; } = 0.1;
         public double SigmoidAlphaValue { get; set; } = 2.0;
         public int Epochs { get; set; } = 200;
-        public int NeuronsInFirstLayer { get; set; } = 4;
+        public int NeuronsInFirstLayer { get; set; } = 10;
 
         // data needed for training
         public double[][] TrainingDataInput { get; set; }

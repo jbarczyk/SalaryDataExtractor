@@ -4,9 +4,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Salary Analyzer" Height="500" Width="1110" MinHeight="500" MinWidth="1110" WindowStartupLocation="CenterScreen">
+        Title="Salary Analyzer" Height="650" Width="1110" MinHeight="650" MinWidth="1110" WindowStartupLocation="CenterScreen">
 
-    <Grid>
+    <Grid Margin="0,0,0,0">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth = "500" Width="5*" />
@@ -14,10 +14,293 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height = "*" />
+            <RowDefinition />
+            <RowDefinition Height = "140" />
         </Grid.RowDefinitions>
 
-        <DataGrid AutoGenerateColumns="False" 
+        <Grid Grid.Row="1" Grid.Column="0" Margin="10,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height = "*" />
+                <RowDefinition Height = "*" />
+            </Grid.RowDefinitions>
+            <Label Margin="0,0,10,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" VerticalAlignment="Top" Content="Country"/>
+            <ComboBox IsEnabled="False" Margin="0,0,10,0" Name="CountryCombo" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" VerticalAlignment="Center">
+                <ComboBoxItem Content="Afghanistan"></ComboBoxItem>
+                <ComboBoxItem Content="Albania"></ComboBoxItem>
+                <ComboBoxItem Content="Algeria"></ComboBoxItem>
+                <ComboBoxItem Content="Andorra"></ComboBoxItem>
+                <ComboBoxItem Content="Angola"></ComboBoxItem>
+                <ComboBoxItem Content="Antigua and Barbuda"></ComboBoxItem>
+                <ComboBoxItem Content="Argentina"></ComboBoxItem>
+                <ComboBoxItem Content="Armenia"></ComboBoxItem>
+                <ComboBoxItem Content="Australia"></ComboBoxItem>
+                <ComboBoxItem Content="Austria"></ComboBoxItem>
+                <ComboBoxItem Content="Azerbaijan"></ComboBoxItem>
+                <ComboBoxItem Content="Bahamas"></ComboBoxItem>
+                <ComboBoxItem Content="Bahrain"></ComboBoxItem>
+                <ComboBoxItem Content="Bangladesh"></ComboBoxItem>
+                <ComboBoxItem Content="Barbados"></ComboBoxItem>
+                <ComboBoxItem Content="Belarus"></ComboBoxItem>
+                <ComboBoxItem Content="Belgium"></ComboBoxItem>
+                <ComboBoxItem Content="Belize"></ComboBoxItem>
+                <ComboBoxItem Content="Benin"></ComboBoxItem>
+                <ComboBoxItem Content="Bhutan"></ComboBoxItem>
+                <ComboBoxItem Content="Bolivia"></ComboBoxItem>
+                <ComboBoxItem Content="Bosnia and Herzegovina"></ComboBoxItem>
+                <ComboBoxItem Content="Botswana"></ComboBoxItem>
+                <ComboBoxItem Content="Brazil"></ComboBoxItem>
+                <ComboBoxItem Content="Brunei Darussalam"></ComboBoxItem>
+                <ComboBoxItem Content="Bulgaria"></ComboBoxItem>
+                <ComboBoxItem Content="Burkina Faso"></ComboBoxItem>
+                <ComboBoxItem Content="Burundi"></ComboBoxItem>
+                <ComboBoxItem Content="Cambodia"></ComboBoxItem>
+                <ComboBoxItem Content="Cameroon"></ComboBoxItem>
+                <ComboBoxItem Content="Canada"></ComboBoxItem>
+                <ComboBoxItem Content="Cape Verde"></ComboBoxItem>
+                <ComboBoxItem Content="Central African Republic"></ComboBoxItem>
+                <ComboBoxItem Content="Chile"></ComboBoxItem>
+                <ComboBoxItem Content="China"></ComboBoxItem>
+                <ComboBoxItem Content="Colombia"></ComboBoxItem>
+                <ComboBoxItem Content="Congo, Republic of the..."></ComboBoxItem>
+                <ComboBoxItem Content="Costa Rica"></ComboBoxItem>
+                <ComboBoxItem Content="Côte d'Ivoire"></ComboBoxItem>
+                <ComboBoxItem Content="Croatia"></ComboBoxItem>
+                <ComboBoxItem Content="Cuba"></ComboBoxItem>
+                <ComboBoxItem Content="Cyprus"></ComboBoxItem>
+                <ComboBoxItem Content="Czech Republic"></ComboBoxItem>
+                <ComboBoxItem Content="Democratic People's Republic of Korea"></ComboBoxItem>
+                <ComboBoxItem Content="Democratic Republic of the Congo"></ComboBoxItem>
+                <ComboBoxItem Content="Denmark"></ComboBoxItem>
+                <ComboBoxItem Content="Djibouti"></ComboBoxItem>
+                <ComboBoxItem Content="Dominica"></ComboBoxItem>
+                <ComboBoxItem Content="Dominican Republic"></ComboBoxItem>
+                <ComboBoxItem Content="Ecuador"></ComboBoxItem>
+                <ComboBoxItem Content="Egypt"></ComboBoxItem>
+                <ComboBoxItem Content="El Salvador"></ComboBoxItem>
+                <ComboBoxItem Content="Eritrea"></ComboBoxItem>
+                <ComboBoxItem Content="Estonia"></ComboBoxItem>
+                <ComboBoxItem Content="Ethiopia"></ComboBoxItem>
+                <ComboBoxItem Content="Fiji"></ComboBoxItem>
+                <ComboBoxItem Content="Finland"></ComboBoxItem>
+                <ComboBoxItem Content="France"></ComboBoxItem>
+                <ComboBoxItem Content="Gabon"></ComboBoxItem>
+                <ComboBoxItem Content="Gambia"></ComboBoxItem>
+                <ComboBoxItem Content="Georgia"></ComboBoxItem>
+                <ComboBoxItem Content="Germany"></ComboBoxItem>
+                <ComboBoxItem Content="Ghana"></ComboBoxItem>
+                <ComboBoxItem Content="Greece"></ComboBoxItem>
+                <ComboBoxItem Content="Grenada"></ComboBoxItem>
+                <ComboBoxItem Content="Guatemala"></ComboBoxItem>
+                <ComboBoxItem Content="Guinea"></ComboBoxItem>
+                <ComboBoxItem Content="Guinea-Bissau"></ComboBoxItem>
+                <ComboBoxItem Content="Guyana"></ComboBoxItem>
+                <ComboBoxItem Content="Haiti"></ComboBoxItem>
+                <ComboBoxItem Content="Honduras"></ComboBoxItem>
+                <ComboBoxItem Content="Hong Kong (S.A.R.)"></ComboBoxItem>
+                <ComboBoxItem Content="Hungary"></ComboBoxItem>
+                <ComboBoxItem Content="Iceland"></ComboBoxItem>
+                <ComboBoxItem Content="India"></ComboBoxItem>
+                <ComboBoxItem Content="Indonesia"></ComboBoxItem>
+                <ComboBoxItem Content="Iran, Islamic Republic of..."></ComboBoxItem>
+                <ComboBoxItem Content="Iraq"></ComboBoxItem>
+                <ComboBoxItem Content="Ireland"></ComboBoxItem>
+                <ComboBoxItem Content="Israel"></ComboBoxItem>
+                <ComboBoxItem Content="Italy"></ComboBoxItem>
+                <ComboBoxItem Content="Jamaica"></ComboBoxItem>
+                <ComboBoxItem Content="Japan"></ComboBoxItem>
+                <ComboBoxItem Content="Jordan"></ComboBoxItem>
+                <ComboBoxItem Content="Kazakhstan"></ComboBoxItem>
+                <ComboBoxItem Content="Kenya"></ComboBoxItem>
+                <ComboBoxItem Content="Kuwait"></ComboBoxItem>
+                <ComboBoxItem Content="Kyrgyzstan"></ComboBoxItem>
+                <ComboBoxItem Content="Latvia"></ComboBoxItem>
+                <ComboBoxItem Content="Lebanon"></ComboBoxItem>
+                <ComboBoxItem Content="Lesotho"></ComboBoxItem>
+                <ComboBoxItem Content="Liberia"></ComboBoxItem>
+                <ComboBoxItem Content="Libyan Arab Jamahiriya"></ComboBoxItem>
+                <ComboBoxItem Content="Liechtenstein"></ComboBoxItem>
+                <ComboBoxItem Content="Lithuania"></ComboBoxItem>
+                <ComboBoxItem Content="Luxembourg"></ComboBoxItem>
+                <ComboBoxItem Content="Madagascar"></ComboBoxItem>
+                <ComboBoxItem Content="Malawi"></ComboBoxItem>
+                <ComboBoxItem Content="Malaysia"></ComboBoxItem>
+                <ComboBoxItem Content="Maldives"></ComboBoxItem>
+                <ComboBoxItem Content="Mali"></ComboBoxItem>
+                <ComboBoxItem Content="Malta"></ComboBoxItem>
+                <ComboBoxItem Content="Marshall Islands"></ComboBoxItem>
+                <ComboBoxItem Content="Mauritania"></ComboBoxItem>
+                <ComboBoxItem Content="Mauritius"></ComboBoxItem>
+                <ComboBoxItem Content="Mexico"></ComboBoxItem>
+                <ComboBoxItem Content="Micronesia, Federated States of..."></ComboBoxItem>
+                <ComboBoxItem Content="Monaco"></ComboBoxItem>
+                <ComboBoxItem Content="Mongolia"></ComboBoxItem>
+                <ComboBoxItem Content="Montenegro"></ComboBoxItem>
+                <ComboBoxItem Content="Morocco"></ComboBoxItem>
+                <ComboBoxItem Content="Mozambique"></ComboBoxItem>
+                <ComboBoxItem Content="Myanmar"></ComboBoxItem>
+                <ComboBoxItem Content="Namibia"></ComboBoxItem>
+                <ComboBoxItem Content="Nauru"></ComboBoxItem>
+                <ComboBoxItem Content="Nepal"></ComboBoxItem>
+                <ComboBoxItem Content="Netherlands"></ComboBoxItem>
+                <ComboBoxItem Content="New Zealand"></ComboBoxItem>
+                <ComboBoxItem Content="Nicaragua"></ComboBoxItem>
+                <ComboBoxItem Content="Niger"></ComboBoxItem>
+                <ComboBoxItem Content="Nigeria"></ComboBoxItem>
+                <ComboBoxItem Content="North Korea"></ComboBoxItem>
+                <ComboBoxItem Content="Norway"></ComboBoxItem>
+                <ComboBoxItem Content="Oman"></ComboBoxItem>
+                <ComboBoxItem Content="Other Country (Not Listed Above)"></ComboBoxItem>
+                <ComboBoxItem Content="Pakistan"></ComboBoxItem>
+                <ComboBoxItem Content="Palau"></ComboBoxItem>
+                <ComboBoxItem Content="Panama"></ComboBoxItem>
+                <ComboBoxItem Content="Paraguay"></ComboBoxItem>
+                <ComboBoxItem Content="Peru"></ComboBoxItem>
+                <ComboBoxItem Content="Philippines"></ComboBoxItem>
+                <ComboBoxItem Content="Poland"></ComboBoxItem>
+                <ComboBoxItem Content="Portugal"></ComboBoxItem>
+                <ComboBoxItem Content="Qatar"></ComboBoxItem>
+                <ComboBoxItem Content="Republic of Korea"></ComboBoxItem>
+                <ComboBoxItem Content="Republic of Moldova"></ComboBoxItem>
+                <ComboBoxItem Content="Romania"></ComboBoxItem>
+                <ComboBoxItem Content="Russian Federation"></ComboBoxItem>
+                <ComboBoxItem Content="Rwanda"></ComboBoxItem>
+                <ComboBoxItem Content="Saint Lucia"></ComboBoxItem>
+                <ComboBoxItem Content="San Marino"></ComboBoxItem>
+                <ComboBoxItem Content="Saudi Arabia"></ComboBoxItem>
+                <ComboBoxItem Content="Senegal"></ComboBoxItem>
+                <ComboBoxItem Content="Serbia"></ComboBoxItem>
+                <ComboBoxItem Content="Sierra Leone"></ComboBoxItem>
+                <ComboBoxItem Content="Singapore"></ComboBoxItem>
+                <ComboBoxItem Content="Slovakia"></ComboBoxItem>
+                <ComboBoxItem Content="Slovenia"></ComboBoxItem>
+                <ComboBoxItem Content="Solomon Islands"></ComboBoxItem>
+                <ComboBoxItem Content="Somalia"></ComboBoxItem>
+                <ComboBoxItem Content="South Africa"></ComboBoxItem>
+                <ComboBoxItem Content="South Korea"></ComboBoxItem>
+                <ComboBoxItem Content="Spain"></ComboBoxItem>
+                <ComboBoxItem Content="Sri Lanka"></ComboBoxItem>
+                <ComboBoxItem Content="Sudan"></ComboBoxItem>
+                <ComboBoxItem Content="Suriname"></ComboBoxItem>
+                <ComboBoxItem Content="Swaziland"></ComboBoxItem>
+                <ComboBoxItem Content="Sweden"></ComboBoxItem>
+                <ComboBoxItem Content="Switzerland"></ComboBoxItem>
+                <ComboBoxItem Content="Syrian Arab Republic"></ComboBoxItem>
+                <ComboBoxItem Content="Taiwan"></ComboBoxItem>
+                <ComboBoxItem Content="Tajikistan"></ComboBoxItem>
+                <ComboBoxItem Content="Thailand"></ComboBoxItem>
+                <ComboBoxItem Content="The former Yugoslav Republic of Macedonia"></ComboBoxItem>
+                <ComboBoxItem Content="Timor-Leste"></ComboBoxItem>
+                <ComboBoxItem Content="Togo"></ComboBoxItem>
+                <ComboBoxItem Content="Trinidad and Tobago"></ComboBoxItem>
+                <ComboBoxItem Content="Tunisia"></ComboBoxItem>
+                <ComboBoxItem Content="Turkey"></ComboBoxItem>
+                <ComboBoxItem Content="Turkmenistan"></ComboBoxItem>
+                <ComboBoxItem Content="Uganda"></ComboBoxItem>
+                <ComboBoxItem Content="Ukraine"></ComboBoxItem>
+                <ComboBoxItem Content="United Arab Emirates"></ComboBoxItem>
+                <ComboBoxItem Content="United Kingdom"></ComboBoxItem>
+                <ComboBoxItem Content="United Republic of Tanzania"></ComboBoxItem>
+                <ComboBoxItem Content="United States"></ComboBoxItem>
+                <ComboBoxItem Content="Uruguay"></ComboBoxItem>
+                <ComboBoxItem Content="Uzbekistan"></ComboBoxItem>
+                <ComboBoxItem Content="Venezuela, Bolivarian Republic of..."></ComboBoxItem>
+                <ComboBoxItem Content="Viet Nam"></ComboBoxItem>
+                <ComboBoxItem Content="Yemen"></ComboBoxItem>
+                <ComboBoxItem Content="Zambia"></ComboBoxItem>
+                <ComboBoxItem Content="Zimbabwe"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" VerticalAlignment="Top" Content="Company size"/>
+            <ComboBox Margin="0,0,10,0" Name="CompanySizeCombo" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" VerticalAlignment="Center">
+                <ComboBoxItem Content="1,000 to 4,999 employees"></ComboBoxItem>
+                <ComboBoxItem Content="10 to 19 employees"></ComboBoxItem>
+                <ComboBoxItem Content="10,000 or more employees"></ComboBoxItem>
+                <ComboBoxItem Content="100 to 499 employees"></ComboBoxItem>
+                <ComboBoxItem Content="20 to 99 employees"></ComboBoxItem>
+                <ComboBoxItem Content="5,000 to 9,999 employees"></ComboBoxItem>
+                <ComboBoxItem Content="500 to 999 employees"></ComboBoxItem>
+                <ComboBoxItem Content="Fewer than 10 employees"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Margin="0,0,10,0" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" VerticalAlignment="Top" Content="Employment"/>
+            <ComboBox Margin="0,0,10,0" Name="EmploymentCombo" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" VerticalAlignment="Center">
+                <ComboBoxItem Content="Employed full-time"></ComboBoxItem>
+                <ComboBoxItem Content="Employed part-time"></ComboBoxItem>
+                <ComboBoxItem Content="Independent contractor, freelancer, or self-employed"></ComboBoxItem>
+                <ComboBoxItem Content="Not employed, and not looking for work"></ComboBoxItem>
+                <ComboBoxItem Content="Not employed, but looking for work"></ComboBoxItem>
+                <ComboBoxItem Content="Retired"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Margin="0,0,10,0" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="1" VerticalAlignment="Top" Content="Formal education"/>
+            <ComboBox Margin="0,0,5,0" Name="FormalEducationCombo" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="1" VerticalAlignment="Center">
+                <ComboBoxItem Content="Associate degree"></ComboBoxItem>
+                <ComboBoxItem Content="Bachelor's degree (BA, BS, B.Eng., etc.)"></ComboBoxItem>
+                <ComboBoxItem Content="I never completed any formal education"></ComboBoxItem>
+                <ComboBoxItem Content="Master's degree (MA, MS, M.Eng., MBA, etc.)"></ComboBoxItem>
+                <ComboBoxItem Content="Other doctoral degree (Ph.D, Ed.D., etc.)"></ComboBoxItem>
+                <ComboBoxItem Content="Primary/elementary school"></ComboBoxItem>
+                <ComboBoxItem Content="Professional degree (JD, MD, etc.)"></ComboBoxItem>
+                <ComboBoxItem Content="Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)"></ComboBoxItem>
+                <ComboBoxItem Content="Some college/university study without earning a degree"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Margin="0,0,10,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" VerticalAlignment="Top" Content="Student status"/>
+            <ComboBox Margin="0,0,10,0" Name="StudentCombo" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" VerticalAlignment="Center">
+                <ComboBoxItem Content="No"></ComboBoxItem>
+                <ComboBoxItem Content="Yes, full-time"></ComboBoxItem>
+                <ComboBoxItem Content="Yes, part-time"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Margin="0,0,10,0" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" VerticalAlignment="Top" Content="Experience"/>
+            <ComboBox Margin="0,0,10,0" Name="YearsCodingCombo" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" VerticalAlignment="Center">
+                <ComboBoxItem Content="0-2 years"></ComboBoxItem>
+                <ComboBoxItem Content="12-14 years"></ComboBoxItem>
+                <ComboBoxItem Content="15-17 years"></ComboBoxItem>
+                <ComboBoxItem Content="18-20 years"></ComboBoxItem>
+                <ComboBoxItem Content="21-23 years"></ComboBoxItem>
+                <ComboBoxItem Content="24-26 years"></ComboBoxItem>
+                <ComboBoxItem Content="27-29 years"></ComboBoxItem>
+                <ComboBoxItem Content="30 or more years"></ComboBoxItem>
+                <ComboBoxItem Content="3-5 years"></ComboBoxItem>
+                <ComboBoxItem Content="6-8 years"></ComboBoxItem>
+                <ComboBoxItem Content="9-11 years"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Margin="0,0,10,0" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" VerticalAlignment="Top" Content="Dev type"/>
+            <ComboBox IsEnabled="False" Margin="0,0,10,0" Name="DevTypeCombo" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" VerticalAlignment="Center">
+                <ComboBoxItem Content="Back-end developer"></ComboBoxItem>
+                <ComboBoxItem Content="C-suite executive (CEO, CTO, etc.)"></ComboBoxItem>
+                <ComboBoxItem Content="Data or business analyst"></ComboBoxItem>
+                <ComboBoxItem Content="Data scientist or machine learning specialist"></ComboBoxItem>
+                <ComboBoxItem Content="Database administrator"></ComboBoxItem>
+                <ComboBoxItem Content="Designer"></ComboBoxItem>
+                <ComboBoxItem Content="Desktop or enterprise applications developer"></ComboBoxItem>
+                <ComboBoxItem Content="DevOps specialist"></ComboBoxItem>
+                <ComboBoxItem Content="Educator or academic researcher"></ComboBoxItem>
+                <ComboBoxItem Content="Embedded applications or devices developer"></ComboBoxItem>
+                <ComboBoxItem Content="Engineering manager"></ComboBoxItem>
+                <ComboBoxItem Content="Front-end developer"></ComboBoxItem>
+                <ComboBoxItem Content="Full-stack developer"></ComboBoxItem>
+                <ComboBoxItem Content="Game or graphics developer"></ComboBoxItem>
+                <ComboBoxItem Content="Marketing or sales professional"></ComboBoxItem>
+                <ComboBoxItem Content="Mobile developer"></ComboBoxItem>
+                <ComboBoxItem Content="Product manager"></ComboBoxItem>
+                <ComboBoxItem Content="QA or test developer"></ComboBoxItem>
+                <ComboBoxItem Content="Student"></ComboBoxItem>
+                <ComboBoxItem Content="System administrator"></ComboBoxItem>
+            </ComboBox>
+        </Grid>
+
+        <DataGrid AutoGenerateColumns="False"
           Name="questionGrid"
                   Grid.Row="0"
                   Grid.Column="0"
@@ -27,7 +310,7 @@
                 <DataGridTextColumn Binding="{Binding Path=Description}" MinWidth="50" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Width="417">
+        <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Width="417" Margin="0,0,-4,0">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width = "auto" />
@@ -58,8 +341,10 @@
                 <Button x:Name="TrainTestButton" Content="Train &amp; Test"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="27" Margin="0,5,0,0" Click="TrainTestButton_Click" IsEnabled="False"/>
                 <Button x:Name="LoadNetworkButton" Content="Load network"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="27" Margin="6,5,7,0" Click="LoadNetwork_Click" IsEnabled="False"/>
                 <Button x:Name="SaveNetworkButton" Content="Save network"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="27" Margin="6,5,7,0" Click="SaveNetwork_Click" IsEnabled="False"/>
-                <Button x:Name="CalcButton" Content="Calculate"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="27" Margin="0,37,0,0" Click="CalcButton_Click" IsEnabled="False"/>
+                <Button x:Name="CalcButton" Content="Calculate"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="27" Margin="0,32,0,0" Click="CalcButton_Click" IsEnabled="False"/>
             </StackPanel>
         </Grid>
+        <Label Content="0 USD/Year" Name="ResultLabel" Grid.Column="1" Margin="0" Grid.Row="1" Height="50" Width="300" FontSize="24"/>
+
     </Grid>
 </Window>

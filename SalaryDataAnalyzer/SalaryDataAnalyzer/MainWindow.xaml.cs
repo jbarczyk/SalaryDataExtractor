@@ -113,9 +113,11 @@ namespace SalaryDataAnalyzer
                 .Distinct()
                 .OrderBy(x => x))
             {
-                var newLine = response + ";";
-                csv.Append(newLine);
-
+                if (!response.Contains(";"))
+                {
+                    var newLine = "<ComboBoxItem Content=\"" + response + "\"></ComboBoxItem>\n";
+                    csv.Append(newLine);
+                }
                 list.Add(new DataObject
                 {
                     Response = response
@@ -123,7 +125,7 @@ namespace SalaryDataAnalyzer
             }
 
             if (!Directory.Exists("./Saved")) Directory.CreateDirectory("./Saved");
-            File.WriteAllText("./Saved/question_options.csv", csv.ToString());
+            File.WriteAllText("./Saved/"+question.Header+".txt", csv.ToString());
 
             answerGrid.ItemsSource = list;
             FitToContent(answerGrid);
@@ -171,15 +173,8 @@ namespace SalaryDataAnalyzer
             var questions = _survey.Questions.ToArray();
             var responses = _survey.Responses;
 
-            /* var tasks = _survey.Responses.Select((x, i) => new { x, i }).GroupBy(x => x.i / 2500).Select(x => Task.Run(x.Answers.SelectMany((a, i) =>
-            {
-                var correctNormalizers = normalizers.Where(n => n.HeaderValue.Equals(questions[i].Header));
-                return correctNormalizers.Select(n => n.NormalizeData(a));
-            }).Where(vec => !vec.Contains(null))));
+            Model.Extensions.Shuffle(responses.ToList());
 
-            var result = await Task.WhenAll(tasks); //albo Wait All, to co zwraca taska
-            var inputVectors = result.SelectMany(x => x);
-            */
             var outputVectors = new List<List<decimal>>();
             var inputVectors = responses.Select((x, idx) =>
             {
@@ -265,8 +260,46 @@ namespace SalaryDataAnalyzer
 
         private void CalcButton_Click(object sender, RoutedEventArgs e)
         {
+            var factory = new NormalizersFactory();
+            var normalizers = factory.CreateNormalizers().Skip(1);
+
+            var questions = new string[] { "Country","CompanySize","DevType","Employment","FormalEducation","Student","YearsCoding"};
+            var responses = new string[] {
+                //CountryCombo.Text ,
+                CompanySizeCombo.Text ,
+                //DevTypeCombo.Text,
+                EmploymentCombo.Text,
+                FormalEducationCombo.Text,
+                StudentCombo.Text,
+                YearsCodingCombo.Text};
+
+            if(responses.Any(x => x == ""))
+            {
+                System.Windows.MessageBox.Show("Select all answers");
+                return;
+            }
+
+            var input = new List<double> { };
+
+            for(int o = 0; o < normalizers.Count(); o++)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    if (questions[i] == normalizers.ElementAt(o).HeaderValue)
+                    {
+                        decimal? temp = normalizers.ElementAt(o).NormalizeData(responses[i]);
+                        if(temp == null)
+                        {
+                            temp = 0;
+                        }
+                        input.Add((double)temp.Value);
+                    }
+                }
+            }
+
             //hardcoded input vector to check
-            Console.WriteLine("Result: " + _network.Calculate(new double[]{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0.18841, 0.625, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0.5})[0] + ". Expected 0,05556."); // 0,05556
+            Console.WriteLine("Result: " + _network.Calculate(input.ToArray())[0] * 1_000_000);
+            ResultLabel.Content = Math.Round(_network.Calculate(input.ToArray())[0]*1_000_000) + " USD/Year";
         }
     }
 }

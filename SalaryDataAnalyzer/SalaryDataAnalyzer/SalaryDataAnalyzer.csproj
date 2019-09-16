@@ -133,6 +133,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Factories\NormalizersFactory.cs" />
+    <Compile Include="Model\Extensions.cs" />
     <Compile Include="Normalizers\CompanySizeNormalizer.cs" />
     <Compile Include="Normalizers\ConvertedSalaryNormalizer.cs" />
     <Compile Include="Normalizers\GenericCountryNormalizer.cs" />
